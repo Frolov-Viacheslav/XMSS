@@ -25,11 +25,11 @@ public class PublicKeyGeneration {
     public static String[] bitMask;
 
     public void treeBuilding(String [][] keysArray, Integer N, Integer s){ // Tree building with L-Tree
-        countLayer = (int)Math.ceil(Binarylog.binlog((double) N)) + 1;
+        countLayer = (int)Math.ceil(Binarylog.binlog((double) N));
         if(keysArray[1].length % 2 == 0)
-            tree = new String[countLayer][N];
+            tree = new String[countLayer + 1][N];
         else
-            tree = new String[countLayer][N+1];
+            tree = new String[countLayer + 1][N+1];
         for(int i = 0; i < N; i++) {
             tree[0][i] = keysArray[1][i];
         }
@@ -40,22 +40,22 @@ public class PublicKeyGeneration {
 
     public String calculateRoot(Integer N, Integer s){
         int k = 0;
-        for (int i = 1; i < countLayer; i++) {
+        for (int i = 1; i <= countLayer; i++) {
             for (int j = 0; j < N / (Math.pow(2, i - 1)); j += 2) {
                 if(tree[i - 1][j + 1] != null)
-                    tree[i][k] = MD5HEX.md5Custom(kpg.xor(tree[i - 1][j], bitMask[i * 2], s/4)  + kpg.xor(tree[i - 1][j + 1], bitMask[i * 2 + 1], s/4));
+                    tree[i][k] = MD5HEX.md5Custom(kpg.xor(tree[i - 1][j], bitMask[(i-1) * 2], s/4)  + kpg.xor(tree[i - 1][j + 1], bitMask[(i-1) * 2 + 1], s/4));
                 else
                     tree[i][k] = tree[i - 1][j];
                 k++;
             }
             k = 0;
         }
-        root = tree[countLayer-1][0];
+        root = tree[countLayer][0];
         return root;
     }
 
     public  void printTree(Integer N){
-        for (int i = 0; i < countLayer; i++) {
+        for (int i = 0; i <= countLayer; i++) {
             for (int j = 0; j < N; j++) {
                 System.out.print(tree[i][j] + "\t");
             }
