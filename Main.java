@@ -19,7 +19,7 @@ public class Main {
         int N = Integer.parseInt(nCount.nextLine());
         int s = 128; // Length of hash function
         //Building tree
-        pkg.treeBilding(pkg.creationKeysArray(s, w, N), N);
+        pkg.treeBuilding(pkg.creationKeysArray(s, w, N), N, s);
         //Signinig
         int keyIndex = 0;
         signing(w, N, args, keyIndex);
