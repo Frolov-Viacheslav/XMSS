@@ -25,7 +25,7 @@ WOTS_PLUS.P_SignatureVerification sv = new WOTS_PLUS.P_SignatureVerification();
         String authPathBit = getAuthPathBit(SIGNATURE, s, countLayer);
         boolean verify = false;
         String root = key;
-        for(int i = 0; i < countLayer - 1; i++) {
+        for(int i = 0; i < countLayer; i++) {
             String temp = authPath;
             temp = temp.substring(i * s / 4, i * s / 4 + s / 4); // нахождение подстроки с длиной в s символ
             if(temp.compareTo(root) != 0) {
@@ -48,14 +48,14 @@ WOTS_PLUS.P_SignatureVerification sv = new WOTS_PLUS.P_SignatureVerification();
 
     public String getAuthPath(String SIGNATURE, Integer s, Integer countLayer){
         String authPath;
-        authPath = SIGNATURE.substring(s/4 + s * WOTS_PLUS.P_KeyPairGeneration.l, (s/4 + s * WOTS_PLUS.P_KeyPairGeneration.l) + (s/4 * (countLayer - 1)));
+        authPath = SIGNATURE.substring(s/4 + s * WOTS_PLUS.P_KeyPairGeneration.l, (s/4 + s * WOTS_PLUS.P_KeyPairGeneration.l) + (s/4 * (countLayer)));
         System.out.println("autpath: " + authPath);
         return authPath;
     }
 
     public  String getAuthPathBit(String SIGNATURE, Integer s, Integer countLayer){
         String authPathBit;
-        authPathBit = SIGNATURE.substring(s/4 + s * WOTS_PLUS.P_KeyPairGeneration.l + (s/4 * (countLayer - 1)), (s/4 + s * WOTS_PLUS.P_KeyPairGeneration.l) + (s/4 * (countLayer - 1)) + (countLayer - 1));
+        authPathBit = SIGNATURE.substring(s/4 + s * WOTS_PLUS.P_KeyPairGeneration.l + (s/4 * (countLayer)), (s/4 + s * WOTS_PLUS.P_KeyPairGeneration.l) + (s/4 * (countLayer)) + (countLayer));
         System.out.println("authPathBit: " + authPathBit);
         return authPathBit;
     }
