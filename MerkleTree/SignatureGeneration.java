@@ -13,7 +13,7 @@ public class SignatureGeneration {
             if(tree[0][i].compareTo(key) == 0)
                 keyIndex = i;
         }
-        for(int i = 0; i < countLayer - 1; i++) {
+        for(int i = 0; i < countLayer; i++) {
             if(keyIndex % 2 == 0){
                 keyIndex ++;
                 authPathBit += 0;
