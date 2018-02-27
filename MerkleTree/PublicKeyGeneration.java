@@ -1,6 +1,5 @@
 package MerkleTree;
 import Config.*;
-import WOTS_CR.*;
 
 public class PublicKeyGeneration {
    // PRG prg = new PRG();
