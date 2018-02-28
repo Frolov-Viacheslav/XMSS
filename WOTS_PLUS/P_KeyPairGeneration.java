@@ -56,7 +56,7 @@ public class P_KeyPairGeneration {
         return Yi;
     }
 
-    private String xor(String Yi, String ri, Integer s) {
+    public String xor(String Yi, String ri, Integer s) {
         String newYi = "";
         for (int i = 0; i < s; i++) {
             newYi += Yi.charAt(i) ^ ri.charAt(i);
