@@ -45,6 +45,15 @@ public class SignatureGeneration {
         }
         return bitMaskString;
     }
+    
+    public String keyIndexToString(Integer keyIndex){
+        String keyIndexString = "";
+        for(int i = (int) Math.ceil(Math.log10(keyIndex + 0.5)); i < 6; i++){
+            keyIndexString += "0";
+        }
+        keyIndexString += keyIndex;
+        return keyIndexString;
+    }
 
     public String SignatureGeneration(String key, String Message, Integer s, Integer w, String [][] tree, Integer N, Integer countLayer, String root, String X, String r){
         String SIGNATURE = key + r + oneTimeSignatureGeneration(Message, s, w, X, r) + authPathCalculate(key, tree, N, countLayer) + authPathBit + root + convertBitMaskToString();
