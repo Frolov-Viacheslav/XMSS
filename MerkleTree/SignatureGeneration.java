@@ -38,8 +38,16 @@ public class SignatureGeneration {
         return sg.SIGNATURE;
     }
 
+   public String getBitMask(){
+        String bitMaskString = "";
+        for (int i = 0; i < PublicKeyGeneration.bitMask.length; i++) {
+           bitMaskString += PublicKeyGeneration.bitMask[i];
+        }
+        return bitMaskString;
+    }
+
     public String SignatureGeneration(String key, String Message, Integer s, Integer w, String [][] tree, Integer N, Integer countLayer, String root, String X, String r){
-        String SIGNATURE = key + oneTimeSignatureGeneration(Message, s, w, X, r) + authPathCalculate(key, tree, N, countLayer) + authPathBit + root;
-        return SIGNATURE;// oneTimeY + oneTimeSig + authPath + root
+        String SIGNATURE = key + r + oneTimeSignatureGeneration(Message, s, w, X, r) + authPathCalculate(key, tree, N, countLayer) + authPathBit + root + getBitMask();
+        return SIGNATURE;// oneTimeY + oneTimeBitMask + oneTimeSig + authPath + root + bitMask
     }
 }
