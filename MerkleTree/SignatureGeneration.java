@@ -57,6 +57,6 @@ public class SignatureGeneration {
 
     public String SignatureGeneration(String key, String Message, Integer s, Integer w, String [][] tree, Integer N, Integer countLayer, String root, String X, String r){
         String SIGNATURE = key + r + oneTimeSignatureGeneration(Message, s, w, X, r) + authPathCalculate(key, tree, N, countLayer) + authPathBit + root + convertBitMaskToString();
-        return SIGNATURE;// oneTimeY + oneTimeBitMask + oneTimeSig + authPath + root + bitMask
+        return SIGNATURE;// index(6) + oneTimeY(s/4) + oneTimeBitMask((w-1)*s) + oneTimeSig(l*s) + authPath(countLayer*s/4) + authPathBit(countLayer) + root(s/4) + bitMask(2*countLayer*s/4)
     }
 }
