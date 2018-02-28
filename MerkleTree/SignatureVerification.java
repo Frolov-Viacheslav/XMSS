@@ -2,7 +2,8 @@ package MerkleTree;
 import Config.*;
 public class SignatureVerification {
 
-WOTS_PLUS.P_SignatureVerification sv = new WOTS_PLUS.P_SignatureVerification();
+    WOTS_PLUS.P_SignatureVerification sv = new WOTS_PLUS.P_SignatureVerification();
+    WOTS_PLUS.P_KeyPairGeneration kpg = new WOTS_PLUS.P_KeyPairGeneration();
 
     public boolean allSignatureVerify(Integer countLayer, String authPath, Integer s, Integer w, String realRoot, String SIGNATURE, String Message, String Y, String r){
         boolean verify = false;
