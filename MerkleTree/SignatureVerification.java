@@ -7,23 +7,25 @@ public class SignatureVerification {
 
     public boolean allSignatureVerify(Integer countLayer, String authPath, Integer s, Integer w, String realRoot, String SIGNATURE, String Message, String Y, String r){
         boolean verify = false;
-        if(oneTimeSignatureVerify(SIGNATURE, Message, s, w, Y, r) == false) {
+        if(oneTimeSignatureVerify(SIGNATURE, Message, s, w, Y) == false) {
             System.out.println("OneTimeSignature is not valid");
             return verify;
         }
-        verify = merkleKeyVerify(Y, countLayer, authPath, s, realRoot);
+        verify = merkleKeyVerify(Y, countLayer, authPath, s, realRoot, w);
         return  verify;
     }
 
-    public boolean oneTimeSignatureVerify(String SIGNATURE, String Message, Integer s, Integer w, String Y, String r){
+    public boolean oneTimeSignatureVerify(String SIGNATURE, String Message, Integer s, Integer w, String Y){
+        String r = getR(SIGNATURE, s, w);
         boolean equalSignature;
         equalSignature = sv.verifySignature(SIGNATURE, Message, s, w, Y, r);
         return  equalSignature;
     }
 
-    public boolean merkleKeyVerify(String key, Integer countLayer, String SIGNATURE, Integer s, String realRoot){
-        String authPath = getAuthPath(SIGNATURE, s, countLayer);
-        String authPathBit = getAuthPathBit(SIGNATURE, s, countLayer);
+    public boolean merkleKeyVerify(String key, Integer countLayer, String SIGNATURE, Integer s, String realRoot, Integer w){
+        String authPath = getAuthPath(SIGNATURE, s, countLayer, w);
+        String authPathBit = getAuthPathBit(SIGNATURE, s, countLayer, w);
+        String bitMask = getBitMask(SIGNATURE, s, countLayer, w);
         boolean verify = false;
         String root = key;
         for(int i = 0; i < countLayer; i++) {
@@ -51,17 +53,28 @@ public class SignatureVerification {
         return  verify;
     }
 
-    public String getAuthPath(String SIGNATURE, Integer s, Integer countLayer){
+    public String getAuthPath(String SIGNATURE, Integer s, Integer countLayer, Integer w){
         String authPath;
-        authPath = SIGNATURE.substring(s/4 + s * WOTS_PLUS.P_KeyPairGeneration.l, (s/4 + s * WOTS_PLUS.P_KeyPairGeneration.l) + (s/4 * (countLayer)));
+        authPath = SIGNATURE.substring(6 + (w - 1) * s + s/4 + s * WOTS_PLUS.P_KeyPairGeneration.l, 6 + (w - 1) * s + (s/4 + s * WOTS_PLUS.P_KeyPairGeneration.l) + (s/4 * (countLayer)));
         System.out.println("autpath: " + authPath);
         return authPath;
     }
 
-    public  String getAuthPathBit(String SIGNATURE, Integer s, Integer countLayer){
+    public  String getAuthPathBit(String SIGNATURE, Integer s, Integer countLayer, Integer w){
         String authPathBit;
-        authPathBit = SIGNATURE.substring(s/4 + s * WOTS_PLUS.P_KeyPairGeneration.l + (s/4 * (countLayer)), (s/4 + s * WOTS_PLUS.P_KeyPairGeneration.l) + (s/4 * (countLayer)) + (countLayer));
+        authPathBit = SIGNATURE.substring(6 + (w - 1) * s + s/4 + s * WOTS_PLUS.P_KeyPairGeneration.l + (s/4 * (countLayer)), 6 + (w - 1) * s + (s/4 + s * WOTS_PLUS.P_KeyPairGeneration.l) + (s/4 * (countLayer)) + (countLayer));
         System.out.println("authPathBit: " + authPathBit);
         return authPathBit;
+    }
+
+    public String getR(String SIGNATURE, Integer s, Integer w){
+        String r =  SIGNATURE.substring(6 + s/4, 6 + s/4 + (w - 1) * s);
+        System.out.println("R: " + r);
+        return  r;
+    }
+
+    public String getBitMask(String SIGNATURE, Integer s, Integer countLayer, Integer w){
+        String bitMask =  SIGNATURE.substring(6 + s/4 + (w - 1) * s + s * WOTS_PLUS.P_KeyPairGeneration.l + (s/4 * (countLayer + 1)) + countLayer, 6 + s/4 + (w - 1) * s + s * WOTS_PLUS.P_KeyPairGeneration.l + (s/4 * (3 * countLayer + 1)) + countLayer);
+        return  bitMask;
     }
 }
