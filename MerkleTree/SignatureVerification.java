@@ -30,9 +30,13 @@ WOTS_PLUS.P_SignatureVerification sv = new WOTS_PLUS.P_SignatureVerification();
             temp = temp.substring(i * s / 4, i * s / 4 + s / 4); // нахождение подстроки с длиной в s символ
             if(temp.compareTo(root) != 0) {
                 if(authPathBit.substring(i, i + 1).compareTo("0") == 0) {
+                    root = kpg.xor(root, PublicKeyGeneration.bitMask[i], s/4);
+                    temp = kpg.xor(temp, PublicKeyGeneration.bitMask[i+1], s/4);
                     root += temp;
                 }
                 else{
+                    temp = kpg.xor(temp, PublicKeyGeneration.bitMask[i], s/4);
+                    root = kpg.xor(root, PublicKeyGeneration.bitMask[i+1], s/4);
                     temp += root;
                     root = temp;
                 }
