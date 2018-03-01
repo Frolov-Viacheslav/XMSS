@@ -1,2 +1,2 @@
 # XMSS
-XMSS
+XMSS with WOTS+
