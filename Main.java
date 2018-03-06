@@ -66,6 +66,7 @@ public class Main {
             //Reboot();
             signing(w, N, args, keyIndex);
         }
+        else System.exit(0);
     }
 
 
