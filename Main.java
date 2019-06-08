@@ -3,20 +3,22 @@ import MerkleTree.SignatureGeneration;
 import Config.*;
 import MerkleTree.SignatureVerification;
 
-import java.util.Scanner;
+//import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         PublicKeyGeneration pkg = new PublicKeyGeneration();
         //Parametr w
-        Scanner inW = new Scanner(System.in);
-        System.out.println("Input parametr w for WOTS (power of 2):");
-        int w = Integer.parseInt(inW.nextLine());
+        //Scanner inW = new Scanner(System.in);
+        //System.out.println("Input parametr w for WOTS (power of 2):");
+        //int w = Integer.parseInt(inW.nextLine());
+        int w = 2;
         //Parametr N
-        Scanner nCount = new Scanner(System.in);
-        System.out.println("Input parametr N:");
-        int N = Integer.parseInt(nCount.nextLine());
+        //Scanner nCount = new Scanner(System.in);
+        //System.out.println("Input parametr N:");
+        //int N = Integer.parseInt(nCount.nextLine());
+        int N = 8;
         int s = 128; // Length of hash function
         //Building tree
         pkg.treeBuilding(pkg.creationKeysArray(s, w, N), N, s);
@@ -29,9 +31,10 @@ public class Main {
     public static void signing(Integer w, Integer N, String[] args, Integer keyIndex){
         MD5Binary md5b = new MD5Binary();
         //Parametr s and message
-        Scanner inMessage = new Scanner(System.in);
-        System.out.printf("Input your message:\n");
-        String Message = inMessage.nextLine();
+        //Scanner inMessage = new Scanner(System.in);
+        //System.out.printf("Input your message:\n");
+        //String Message = inMessage.nextLine();
+        String Message = "Hello world";
         Message = md5b.md5Custom(Message);
         int s = Message.length();
         //OTS key selection
@@ -50,23 +53,24 @@ public class Main {
         //Exit
         if(keysResidue == 0){
             System.out.println("Key limit is reached");
-            System.out.println("Exit or create new tree? (0 - Exit, 1 - Create new tree):");
-            Scanner inExit = new Scanner(System.in);
-            int exitOrNot = Integer.parseInt(inExit.nextLine());
-            if(exitOrNot == 1){
+            //System.out.println("Exit or create new tree? (0 - Exit, 1 - Create new tree):");
+            //Scanner inExit = new Scanner(System.in);
+            //int exitOrNot = Integer.parseInt(inExit.nextLine());
+           // if(exitOrNot == 1){
                 //Reboot();
-                main(args);
-            }
-            else System.exit(0);
+             //   main(args);
+           // }
+           // else System.exit(0);
+              System.exit(0);
         }
-        Scanner inExit = new Scanner(System.in);
-        System.out.println("Exit or not? (0 - Exit, 1 - Start):");
-        int exitOrNot = Integer.parseInt(inExit.nextLine());
-        if(exitOrNot == 1){
+        //Scanner inExit = new Scanner(System.in);
+        //System.out.println("Exit or not? (0 - Exit, 1 - Start):");
+        //int exitOrNot = Integer.parseInt(inExit.nextLine());
+        //if(exitOrNot == 1){
             //Reboot();
             signing(w, N, args, keyIndex);
-        }
-        else System.exit(0);
+        //}
+        //else System.exit(0);
     }
 
 
