@@ -13,7 +13,7 @@ public class Main {
         //Scanner inW = new Scanner(System.in);
         //System.out.println("Input parametr w for WOTS (power of 2):");
         //int w = Integer.parseInt(inW.nextLine());
-        int w = 2;
+        int w = 4;
         //Parametr N
         //Scanner nCount = new Scanner(System.in);
         //System.out.println("Input parametr N:");
