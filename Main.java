@@ -18,7 +18,7 @@ public class Main {
         //Scanner nCount = new Scanner(System.in);
         //System.out.println("Input parametr N:");
         //int N = Integer.parseInt(nCount.nextLine());
-        int N = 4;
+        int N = 6;
         int s = 128; // Length of hash function
         //Building tree
         pkg.treeBuilding(pkg.creationKeysArray(s, w, N), N, s);
